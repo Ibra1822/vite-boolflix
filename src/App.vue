@@ -1,8 +1,8 @@
 <script>
 import HeaderComp from "./components/HeaderComp.vue";
 import MainComp from "./components/MainComp.vue";
-import axios from "axios";
 import { store } from "./Data/store";
+import axios from "axios";
 
 export default {
   name: "App",
@@ -15,10 +15,30 @@ export default {
       store,
     };
   },
+  methods: {
+    getApi() {
+      axios
+        .get(store.movieApi + "query=" + store.paramToSearch)
+        .then((result) => {
+          console.log(result.data.results);
+          store.movieArray = result.data.results;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    find() {
+      this.getApi();
+      store.paramToSearch = "";
+    },
+  },
+  mounted() {
+    this.getApi();
+  },
 };
 </script>
 <template>
-  <HeaderComp />
+  <HeaderComp @startSearch="find" />
   <MainComp />
 </template>
 
