@@ -16,24 +16,53 @@ export default {
     };
   },
   methods: {
-    getApi() {
+    getApi(type) {
       axios
-        .get(store.movieApi + "query=" + store.paramToSearch)
+        .get(store.movieApi + type, {
+          params: {
+            query: store.paramToSearch,
+            api_key: store.api_key,
+            language: store.language,
+          },
+        })
+
         .then((result) => {
           console.log(result.data.results);
-          store.movieArray = result.data.results;
+
+          if (type === "movie") {
+            store.movieArray = result.data.results;
+          } else {
+            store.tvArray = result.data.results;
+          }
+
+          store.movieArray.forEach((item) => {
+            item.flag = "fi fi-" + item.original_language;
+            if (item.original_language == "en") {
+              item.flag = "fi fi-gb";
+            } else if (item.original_language == "ja") {
+              item.flag = "fi fi-jp";
+            }
+          });
+          store.tvArray.forEach((item) => {
+            item.flag = "fi fi-" + item.original_language;
+            if (item.original_language == "en") {
+              item.flag = "fi fi-gb";
+            } else if (item.original_language == "ja") {
+              item.flag = "fi fi-jp";
+            }
+          });
         })
         .catch((error) => {
           console.log(error);
         });
     },
     find() {
-      this.getApi();
-      store.paramToSearch = "";
+      this.getApi("tv");
+      this.getApi("movie");
     },
   },
   mounted() {
-    this.getApi();
+    this.find();
   },
 };
 </script>

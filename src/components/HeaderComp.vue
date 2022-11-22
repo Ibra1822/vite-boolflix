@@ -43,6 +43,7 @@ header {
     margin-left: 15px;
     img {
       width: 100%;
+      cursor: pointer;
     }
   }
   input,

@@ -11,6 +11,7 @@ export default {
       store,
     };
   },
+  methods: {},
 };
 </script>
 <template>
@@ -22,6 +23,10 @@ export default {
       :cardArray="item"
     />
   </div>
+  <h2>Serie Tv trovate {{ store.tvArray.length }}</h2>
+  <div class="container-card">
+    <CardComp v-for="item in store.tvArray" :key="item.id" :cardArray="item" />
+  </div>
 </template>
 
 <style lang="scss" scoped>
@@ -30,10 +35,10 @@ h2 {
   color: #de1a28;
   text-align: center;
   text-transform: uppercase;
+  margin-bottom: 25px;
 }
 .container-card {
   width: 90%;
-  background-color: #434343;
   margin: 0 auto;
   display: flex;
   flex-wrap: wrap;
