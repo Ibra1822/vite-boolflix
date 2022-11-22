@@ -3,6 +3,7 @@ import { store } from "../Data/store";
 
 export default {
   name: "HeaderComp",
+  props: {},
   data() {
     return {
       store,
@@ -21,7 +22,8 @@ export default {
         type="text"
         name=""
         id=""
-        placeholder="Cerca un film"
+        placeholder="Cerca un Film o Serie Tv"
+        @keyup.enter="$emit('startSearch')"
       />
       <button @click="$emit('startSearch')">Search</button>
     </div>

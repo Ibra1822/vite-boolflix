@@ -7,4 +7,5 @@ export const store = reactive({
   api_key: "e99307154c6dfb0b4750f6603256716d",
   paramToSearch: "",
   language: "it-IT",
+  isLoaded: false,
 });

@@ -17,6 +17,7 @@ export default {
   },
   methods: {
     getApi(type) {
+      store.isLoaded = false;
       axios
         .get(store.movieApi + type, {
           params: {
@@ -28,13 +29,12 @@ export default {
 
         .then((result) => {
           console.log(result.data.results);
-
           if (type === "movie") {
             store.movieArray = result.data.results;
           } else {
             store.tvArray = result.data.results;
           }
-
+          store.isLoaded = true;
           store.movieArray.forEach((item) => {
             item.flag = "fi fi-" + item.original_language;
             if (item.original_language == "en") {
@@ -53,6 +53,7 @@ export default {
           });
         })
         .catch((error) => {
+          store.isLoaded = true;
           console.log(error);
         });
     },
