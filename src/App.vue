@@ -60,7 +60,6 @@ export default {
         });
     },
     find() {
-      this.getApi("movie", true);
       store.tvArray = [];
       store.movieArray = [];
       if (store.gender === "") {
@@ -79,7 +78,7 @@ export default {
 };
 </script>
 <template>
-  <HeaderComp @startSearch="find" />
+  <HeaderComp @startSearch="find" :apiReset="getApi" />
   <MainComp />
 </template>
 

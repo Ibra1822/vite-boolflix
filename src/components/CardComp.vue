@@ -75,6 +75,7 @@ i.fa-star.fas {
 
   &:hover .text-card {
     height: 35%;
+    padding: 5px;
   }
   &:hover .img-card {
     opacity: 0.8;

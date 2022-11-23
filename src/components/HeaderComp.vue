@@ -3,11 +3,22 @@ import { store } from "../Data/store";
 
 export default {
   name: "HeaderComp",
-  props: {},
+  props: {
+    apiReset: Function,
+  },
   data() {
     return {
       store,
     };
+  },
+  methods: {
+    reset() {
+      store.paramToSearch = "";
+      store.gender = "";
+      store.movieArray = [];
+      store.tvArray = [];
+      this.apiReset("movie", true);
+    },
   },
 };
 </script>
@@ -17,6 +28,7 @@ export default {
       <img src="../assets/img/logo-boolflix.png" alt="" />
     </div>
     <div class="find">
+      <button @click="reset()">Popular</button>
       <input
         v-model="store.paramToSearch"
         type="text"

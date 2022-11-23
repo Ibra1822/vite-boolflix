@@ -13,13 +13,28 @@ export default {
     };
   },
   methods: {},
+  computed: {
+    titleMovie() {
+      if (store.paramToSearch === "") {
+        return "Cerca un Film o una serie Tv";
+      } else {
+        return "Film Trovati" + " " + store.movieArray.length;
+      }
+    },
+    titleTv() {
+      if (store.tvArray.length > 0) {
+        return "Serie Tv trovate" + " " + store.tvArray.length;
+      }
+    },
+  },
   mounted() {},
 };
 </script>
 <template>
   <div v-if="store.isLoaded" class="cont-all">
-    <h2 v-if="store.paramToSearch === ''">Cerca un Film o una serie Tv</h2>
-    <h2 v-else>Film trovati {{ store.movieArray.length }}</h2>
+    <h2 v-if="store.gender == 'movie' || store.gender == ''">
+      {{ titleMovie }}
+    </h2>
     <div class="container-card">
       <CardComp
         v-for="item in store.movieArray"
@@ -27,9 +42,7 @@ export default {
         :cardArray="item"
       />
     </div>
-    <h2 v-if="store.tvArray.length > 0">
-      Serie tv trovate {{ store.tvArray.length }}
-    </h2>
+    <h2>{{ titleTv }}</h2>
     <div class="container-card">
       <CardComp
         v-for="item in store.tvArray"
