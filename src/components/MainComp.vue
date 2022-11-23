@@ -18,7 +18,8 @@ export default {
 </script>
 <template>
   <div v-if="store.isLoaded" class="cont-all">
-    <h2>Film trovati {{ store.movieArray.length }}</h2>
+    <h2 v-if="store.paramToSearch === ''">Cerca un Film o una serie Tv</h2>
+    <h2 v-else>Film trovati {{ store.movieArray.length }}</h2>
     <div class="container-card">
       <CardComp
         v-for="item in store.movieArray"
@@ -26,7 +27,9 @@ export default {
         :cardArray="item"
       />
     </div>
-    <h2>Serie Tv trovate {{ store.tvArray.length }}</h2>
+    <h2 v-if="store.tvArray.length > 0">
+      Serie tv trovate {{ store.tvArray.length }}
+    </h2>
     <div class="container-card">
       <CardComp
         v-for="item in store.tvArray"
@@ -47,6 +50,7 @@ h2 {
   text-align: center;
   text-transform: uppercase;
   margin: 25px 0px;
+  text-shadow: 0px 0px 5px #db1927;
 }
 .container-card {
   width: 90%;

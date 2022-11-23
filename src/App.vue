@@ -16,10 +16,13 @@ export default {
     };
   },
   methods: {
-    getApi(type) {
+    getApi(type, isPopular = false) {
+      let api;
+      if (isPopular) api = "https://api.themoviedb.org/3/movie/popular/";
+      else api = store.movieApi + type;
       store.isLoaded = false;
       axios
-        .get(store.movieApi + type, {
+        .get(api, {
           params: {
             query: store.paramToSearch,
             api_key: store.api_key,
@@ -53,16 +56,24 @@ export default {
           });
         })
         .catch((error) => {
-          store.isLoaded = true;
           console.log(error);
         });
     },
     find() {
-      this.getApi("tv");
-      this.getApi("movie");
+      this.getApi("movie", true);
+      store.tvArray = [];
+      store.movieArray = [];
+      if (store.gender === "") {
+        this.getApi("movie");
+        this.getApi("tv");
+      } else {
+        this.getApi(store.gender);
+      }
     },
   },
+
   mounted() {
+    this.getApi("movie", true);
     this.find();
   },
 };

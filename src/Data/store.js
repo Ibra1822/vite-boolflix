@@ -8,4 +8,5 @@ export const store = reactive({
   paramToSearch: "",
   language: "it-IT",
   isLoaded: false,
+  gender: "",
 });
